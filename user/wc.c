@@ -1,3 +1,4 @@
+
 #include "kernel/types.h"
 #include "kernel/stat.h"
 #include "user/user.h"
@@ -9,6 +10,15 @@ wc(int fd, char *name)
 {
   int i, n;
   int l, w, c, inword;
+  if(fstat(fd, &st) < 0) {
+    fprintf(2, "wc: cannot stat file\n");
+    exit(1);
+  }
+
+  if(st.encrypted) {
+    printf("Error: File is encrypted.\n");
+    exit(-1);  // Exit with -1 on encrypted file
+  }
 
   l = w = c = 0;
   inword = 0;
