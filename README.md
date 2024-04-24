@@ -17,11 +17,11 @@ This system call will decrypt the file represented by the file descriptor, fd.  
 
 Attempting to decrypt a file that is not encrypted will return -1 and no change will be made to the file.
 
-### struct file and struct (file.c/h)
-You will update the file structure and the in-memory inode structure to track if a file has been encrypted in a uint8.  Unecrypted status is a value of 0.  Encrypted status is a value of 1.  
+~~### struct file and struct (file.c/h)~~
+~~You will update the file structure and the in-memory inode structure to track if a file has been encrypted in a uint8.  Unecrypted status is a value of 0.  Encrypted status is a value of 1.~~  
 
-### iupdate() and ilock() (fs.c)
-Copy the encrypted status to and from the inode
+~~### iupdate() and ilock() (fs.c)~~
+~~Copy the encrypted status to and from the inode~~
 
 ### iget() (fs.c)
 Initialize the encrypted status 
