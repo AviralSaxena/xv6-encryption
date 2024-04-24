@@ -26,11 +26,11 @@ Attempting to decrypt a file that is not encrypted will return -1 and no change 
 ~~### iget() (fs.c)~~
 ~~Initialize the encrypted status~~
 
-### stati() (fs.c)
-Copy the encrypted status from the inode
+~~### stati() (fs.c)~~
+~~Copy the encrypted status from the inode~~
 
-### stat
-Update the stat struct to add the encrypted status of the given file.
+~~### stat~~
+~~Update the stat struct to add the encrypted status of the given file.~~
 
 ## User Space
 
