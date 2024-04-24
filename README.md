@@ -23,8 +23,8 @@ Attempting to decrypt a file that is not encrypted will return -1 and no change 
 ~~### iupdate() and ilock() (fs.c)~~
 ~~Copy the encrypted status to and from the inode~~
 
-### iget() (fs.c)
-Initialize the encrypted status 
+~~### iget() (fs.c)~~
+~~Initialize the encrypted status~~
 
 ### stati() (fs.c)
 Copy the encrypted status from the inode

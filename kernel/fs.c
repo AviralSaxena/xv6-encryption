@@ -272,6 +272,7 @@ iget(uint dev, uint inum)
   ip->inum = inum;
   ip->ref = 1;
   ip->valid = 0;
+  ip->encrypted = 0;
   release(&itable.lock);
 
   return ip;
