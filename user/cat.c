@@ -55,18 +55,3 @@ main(int argc, char *argv[])
   }
   exit(0);
 }
-int matchhere(char*, char*);
-int matchstar(int, char*, char*);
-
-int
-match(char *re, char *text)
-{
-  if(re[0] == '^')
-    return matchhere(re+1, text);
-  do{  // must look at empty string
-    if(matchhere(re, text))
-      return 1;
-  }while(*text++ != '\0');
-  return 0;
-}
-

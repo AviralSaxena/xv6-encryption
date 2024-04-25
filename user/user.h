@@ -22,6 +22,8 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
+int encrypt(int fd, uint8 key);
+int decrypt(int fd, uint8 key);
 
 // ulib.c
 int stat(const char*, struct stat*);

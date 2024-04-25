@@ -18,6 +18,30 @@
 
 // Fetch the nth word-sized system call argument as a file descriptor
 // and return both the descriptor and the corresponding struct file.
+uint64
+sys_encrypt(void)
+{
+  int fd;
+  int key;
+  
+  argint(0,&fd);
+  argint(1,&key);
+    
+  return encrypt(fd, key);
+}
+
+uint64
+sys_decrypt(void)
+{
+  int fd;
+  int key;
+  
+  argint(0,&fd);
+  argint(1,&key);
+    
+  return decrypt(fd, key);
+}
+
 static int
 argfd(int n, int *pfd, struct file **pf)
 {

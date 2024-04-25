@@ -180,3 +180,84 @@ filewrite(struct file *f, uint64 addr, int n)
   return ret;
 }
 
+int encrypt(int fd, uint8 key) {
+    struct file *f;
+    uint8 data = 0;
+
+    f = myproc()->ofile[fd];
+
+    if (!f) return -1;
+
+    ilock(f->ip);
+
+    if (f->ip->encrypted){
+      iunlock(f->ip);
+      return -1;
+    }
+
+    for (int i = 0; i < f->ip->size; i++) {
+        if (!readi(f->ip, 0, (uint64)&data, i, 1)) {
+            iunlock(f->ip);
+            return -1;
+        }
+        data ^= key;
+        begin_op();
+        if (!writei(f->ip, 0, (uint64)&data, i, 1)) {
+            end_op();
+            iunlock(f->ip);
+            return -1;
+        }
+        end_op();
+    }
+
+    f->ip->encrypted = 1;
+
+    begin_op();
+    iupdate(f->ip);
+    end_op();
+
+    iunlock(f->ip);
+
+    return 0;
+}
+
+int decrypt(int fd, uint8 key) {
+    struct file *f;
+    uint8 data = 0;
+    
+    f = myproc()->ofile[fd];
+
+    if (!f) return -1;
+
+    ilock(f->ip);
+
+    if (!f->ip->encrypted){
+      iunlock(f->ip);
+      return -1;
+    }
+
+    for (int i = 0; i < f->ip->size; i++) {
+        if (!readi(f->ip, 0, (uint64)&data, i, 1)) {
+            iunlock(f->ip);
+            return -1;
+        }
+        data ^= key;
+        begin_op();
+        if (!writei(f->ip, 0, (uint64)&data, i, 1)) {
+            end_op();
+            iunlock(f->ip);
+            return -1;
+        }
+        end_op();
+    }
+
+    f->ip->encrypted = 0;
+
+    begin_op();
+    iupdate(f->ip);
+    end_op();
+    
+    iunlock(f->ip);
+
+    return 0;
+}

@@ -10,6 +10,7 @@ wc(int fd, char *name)
 {
   int i, n;
   int l, w, c, inword;
+  struct stat st;
   if(fstat(fd, &st) < 0) {
     fprintf(2, "wc: cannot stat file\n");
     exit(1);
